@@ -10,6 +10,7 @@ import { Task } from './task.model';
    <task-list [childTaskList]="masterTaskList" (clickSender)="editTask($event)"></task-list>
    <hr>
    <edit-task [childSelectedTask]="selectedTask" (doneButtonClickedSender)="finishedEditing()"></edit-task>
+   <new-task (newTaskSender)="addTask($event)"></new-task>
   </div>
 `
 })
@@ -20,7 +21,7 @@ export class AppComponent {
   month: number = this.currentTime.getMonth() + 1;
   day: number = this.currentTime.getDate();
   year: number = this.currentTime.getFullYear();
-  selectedTask: null;
+  selectedTask = null;
 
   masterTaskList: Task[] = [
     new Task('Finish weekend Angular homework for Epicodus course', 3),
@@ -34,5 +35,9 @@ export class AppComponent {
 
   finishedEditing() {
       this.selectedTask = null;
+  }
+
+  addTask(newTaskFromChild) {
+    this.masterTaskList.push(newTaskFromChild);
   }
 }
